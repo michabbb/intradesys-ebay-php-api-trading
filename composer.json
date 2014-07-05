@@ -1,0 +1,16 @@
+{
+    "name": "intradesys-ebay-php-api-trading",
+    "description": "Intradesys PHP Ebay API Trading",
+    "license" : "GPL-2.0",
+    "authors": [
+    ],
+    "require": {
+        "php" : ">=5.3"
+    },
+
+    "autoload": {
+        "classmap": ["src/"]
+    }
+
+}
+
