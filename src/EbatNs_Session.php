@@ -1039,13 +1039,12 @@ class EbatNs_Session {
         break;
     }
   }
-  /**
-   * 
-   * @access public 
-   * @param string $configFile 
-   * @return void 
-   */
-  function EbatNs_Session($configFile = null)
+
+
+    /**
+     * @param null $configFile
+     */
+    function __construct($configFile = null)
   {
     // call to initialisation
     // (be sure to call this always on the actual class and prevent any overwriting)
@@ -1175,11 +1174,11 @@ class EbatNs_Session {
   /**
    * 
    * @access public 
-   * @return void 
    */
   function getUseStandardLogger()
   {
-    return ($this->_props['UseStandardLogger'] ? true : false);
+    return false;
+    //return ($this->_props['UseStandardLogger'] ? true : false);
   }
 }
 

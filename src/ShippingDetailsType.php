@@ -838,8 +838,8 @@ class ShippingDetailsType extends EbatNs_ComplexType
 	function __construct()
 	{
 		parent::__construct('ShippingDetailsType', 'urn:ebay:apis:eBLBaseComponents');
-		if (!isset(self::$_elements[__CLASS__]))
-				self::$_elements[__CLASS__] = array_merge(self::$_elements[get_parent_class()],
+		if (!isset(self::$_elements[join('', array_slice(explode('\\', __CLASS__), -1))]))
+				self::$_elements[join('', array_slice(explode('\\', __CLASS__), -1))] = array_merge(self::$_elements[join('', array_slice(explode('\\', get_parent_class()), -1))],
 				array(
 					'AllowPaymentEdit' =>
 					array(

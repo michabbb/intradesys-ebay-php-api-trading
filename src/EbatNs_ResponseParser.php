@@ -220,7 +220,7 @@ class EbatNs_ResponseParser
 
     {
 
-        if (! class_exists($typeName))
+        if (! class_exists('intradesys\api\ebay\trading\\'.$typeName))
 
         {
 
@@ -232,7 +232,7 @@ class EbatNs_ResponseParser
 
         
 
-        return (class_exists($typeName));
+        return (class_exists('intradesys\api\ebay\trading\\'.$typeName));
 
     }
 
@@ -245,8 +245,8 @@ class EbatNs_ResponseParser
         if ($this->_includeType($typeName))
 
         {
-
-            $t = new $typeName();
+            $typenameClass = 'intradesys\api\ebay\trading\\'.$typeName;
+            $t = new $typenameClass();
 
             
 
@@ -290,6 +290,7 @@ class EbatNs_ResponseParser
 
     {
 
+
         $this->_responseObject = null;
 
         $this->_stValue = array();
@@ -310,15 +311,14 @@ class EbatNs_ResponseParser
 
         $this->_waitForResponseTag = $responseName;
 
-        
 
-        if ($responseTypeName != null)
 
-            $this->_responseTypeName = $responseTypeName; else
-
+        if ($responseTypeName != null) {
+            $this->_responseTypeName = $responseTypeName;
+        } else {
             $this->_responseTypeName = $responseName . 'Type';
+        }
 
-        
 
         if ($parseMode != EBATNS_PARSEMODE_CALL)
 
@@ -559,15 +559,16 @@ class EbatNs_ResponseParser
 
                     $parent = $this->_stValue[$this->_depth];
 
-                    $typeInfo = $this->_typeMap[strtolower(get_class($parent))];
+                    if (array_key_exists(strtolower(join('', array_slice(explode('\\', get_class($parent)), -1))),$this->_typeMap)) {
+                        $typeInfo = $this->_typeMap[strtolower(join('', array_slice(explode('\\', get_class($parent)), -1)))];
+                    }
+
+                    
+                    if ((isset($typeInfo)) && (array_key_exists($name,$typeInfo['elements']))) $elementInfo = $typeInfo['elements'][$name];
 
                     
 
-                    $elementInfo = $typeInfo['elements'][$name];
-
-                    
-
-                    if ($elementInfo['nsURI'] == $this->_typeNs)
+                    if ((isset($elementInfo)) && ($elementInfo['nsURI'] == $this->_typeNs))
 
                     {
 
@@ -700,17 +701,17 @@ class EbatNs_ResponseParser
 
         if ($current)
 
-            $typeInfoCurrent = $this->_typeMap[strtolower(get_class($current))];
+            $typeInfoCurrent = $this->_typeMap[strtolower(join('', array_slice(explode('\\', get_class($current)), -1)))];
 
         if ($parent)
 
-            $typeInfoParent = $this->_typeMap[strtolower(get_class($parent))];
+            $typeInfoParent = $this->_typeMap[strtolower(join('', array_slice(explode('\\', get_class($parent)), -1)))];
 
         
-
-        $infoMember = $typeInfoParent['elements'][$mapName];
-
-        $data = $this->_decodeData($data, $infoMember['type']);
+        if (isset($typeInfoParent)) {
+            if (array_key_exists($mapName,$typeInfoParent['elements'])) $infoMember = $typeInfoParent['elements'][$mapName];
+            if (isset($infoMember)) $data       = $this->_decodeData($data, $infoMember['type']);
+        }
 
         
 
@@ -722,7 +723,7 @@ class EbatNs_ResponseParser
 
             {
 
-                if (count($typeInfoCurrent['elements']) == 0)
+                if ((isset($typeInfoCurrent)) && (count($typeInfoCurrent['elements']) == 0))
 
                 {
 
@@ -785,16 +786,15 @@ class EbatNs_ResponseParser
                 $currentIsEmpty = false;
 
 				
-
-				if (!$infoMember['type'])
-
-					 $currentIsEmpty = true;                
+                if (isset($infoMember)) {
+                    if (!$infoMember['type']) $currentIsEmpty = true;
+                }
 
             }
 
             
 
-            if ($infoMember)
+            if (isset($infoMember))
 
             {
 
@@ -864,9 +864,9 @@ class EbatNs_ResponseParser
 
                 // contains arraytype
 
-                if (strpos($infoMember['type'], 'ArrayType') !==
+                if ((isset($infoMember)) && (strpos($infoMember['type'], 'ArrayType') !==
 
-                     false)
+                     false))
 
                     {
 

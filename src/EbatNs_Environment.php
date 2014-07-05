@@ -50,9 +50,11 @@ class EbatNs_Environment
         $this->configFile = $configFile;
         $this->session = new EbatNs_Session($this->configFile);
         $this->proxy = new EbatNs_ServiceProxy($this->session);
+        $this->proxy->setLoggingOptions(array('LOG_TIMEPOINTS' => false, 'LOG_API_USAGE' => false));
+        $this->proxy->setTransportOptions(array('HTTP_VERBOSE' => false));
         
-        if ($this->logger)
-	        $this->proxy->attachLogger($this->logger);
+        /*if ($this->logger)
+	        $this->proxy->attachLogger($this->logger);*/
     }
     
     public function dispatchCall()

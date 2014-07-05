@@ -2,6 +2,7 @@
 
 namespace intradesys\api\ebay\trading;
 
+
 // $Id: EbatNs_Client.php,v 1.16 2013-04-08 10:27:42 thomasbiniasch Exp $
 
 // $Log: EbatNs_Client.php,v $
@@ -403,6 +404,7 @@ class EbatNs_Client
 
 		if ($converter)
 
+            $converter = 'intradesys\api\ebay\trading\\'.$converter;
 			$this->_dataConverter = new $converter();
 
 		$this->_parser = null;
@@ -959,7 +961,6 @@ class EbatNs_Client
 
 		$this->_stopTp('Sending SOAP Message');
 
-		
 
 		if ( $responseMsg )
 
@@ -1522,7 +1523,7 @@ class EbatNs_Client
 
 		// if we have a special HttpTransport-class defined use it !
 
-		if (class_exists('EbatNs_HttpTransport'))
+		if (class_exists('intradesys\api\ebay\trading\EbatNs_HttpTransport'))
 
 			return $this->sendMessageShoppingApiStyleNonCurl($message, $extraXmlHeaders);
 

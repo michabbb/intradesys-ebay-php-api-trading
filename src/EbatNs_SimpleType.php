@@ -123,7 +123,7 @@ class EbatNs_SimpleType
     
 	public function __get($key)
     {
-        return $this->{$key};
+        return @$this->{$key};
     }
     
 	public function __set($key, $value)
@@ -133,7 +133,7 @@ class EbatNs_SimpleType
     
     public function reduceElement($noEmptyValues)
     {
-        $thisObj = new ReflectionObject($this);
+        $thisObj = new \ReflectionObject($this);
         if ($noEmptyValues)
 		{
 		    foreach ($thisObj->getProperties() as $property)
@@ -154,7 +154,7 @@ class EbatNs_SimpleType
 					unset($this->{$member});
 		    }
 		}
-		$thisObj = new ReflectionObject($this);
+		$thisObj = new \ReflectionObject($this);
 		return (count($thisObj->getProperties()) > 0);
     }
     

@@ -714,7 +714,7 @@ class EbatNs_LegacyMapper
 	 */
 	function includeType($typeName)
 	{
-		if (!class_exists($typeName))
+		if (!class_exists('intradesys\api\ebay\trading\\'.$typeName))
 			require_once $typeName . '.php';
 	} 
 
