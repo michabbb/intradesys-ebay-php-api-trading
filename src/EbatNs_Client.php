@@ -1188,10 +1188,6 @@ class EbatNs_Client
 		curl_setopt( $ch, CURLOPT_USERAGENT, 'ebatns;1.0' );
 
 		curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
-		
-		//just a try
-		curl_setopt( $ch, CURLOPT_TIMEOUT_MS, $timeout);
-		//just a try
 
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $message );
 
