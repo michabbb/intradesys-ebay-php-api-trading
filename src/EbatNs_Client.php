@@ -771,8 +771,8 @@ class EbatNs_Client
 
 				{
 
-					//return call_user_method( $callback['method'], $callback['object'], $typeName, $value, $mapName, $this );
-                    return call_user_method( $callback['method'], $callback['object'], $typeName, & $value, $mapName, & $this );
+					return call_user_method( $callback['method'], $callback['object'], $typeName, $value, $mapName, $this );
+                    //return call_user_method( $callback['method'], $callback['object'], $typeName, & $value, $mapName, & $this );
 
 				} 
 
@@ -780,8 +780,8 @@ class EbatNs_Client
 
 				{
 
-					//return call_user_func( $callback['method'], $typeName, $value, $mapName, $this );
-                    return call_user_func( $callback['method'], $typeName, & $value, $mapName, & $this );
+					return call_user_func( $callback['method'], $typeName, $value, $mapName, $this );
+                    //return call_user_func( $callback['method'], $typeName, & $value, $mapName, & $this );
 
 				} 
 
