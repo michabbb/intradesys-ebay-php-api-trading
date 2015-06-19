@@ -1965,8 +1965,8 @@ class EbatNs_Client
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0);
 
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0);
-
-		
+		curl_setopt( $ch, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt( $ch, CURLOPT_FORBID_REUSE, true);
 
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $reqHeaders );
 
