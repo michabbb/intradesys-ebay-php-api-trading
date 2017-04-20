@@ -36,12 +36,12 @@ class EbatNs_Environment
      */
     protected $configFile = null;
     
-    public function __construct($logger, $configFile)
+    public function __construct($logger, $configFile,$converter='EbatNs_DataConverterIso')
     {
-        $this->init($logger, $configFile);
+        $this->init($logger, $configFile,$converter);
     }
     
-    public function init($logger, $configFile)
+    public function init($logger, $configFile,$converter='EbatNs_DataConverterIso')
     {
         /*if ($logLevel >= 1)
             $this->logger = new EbatNs_Logger();
@@ -49,7 +49,7 @@ class EbatNs_Environment
         $this->logger = $logger;
         $this->configFile = $configFile;
         $this->session = new EbatNs_Session($this->configFile);
-        $this->proxy = new EbatNs_ServiceProxy($this->session);
+        $this->proxy = new EbatNs_ServiceProxy($this->session,$converter);
         $this->proxy->setLoggingOptions(array('LOG_TIMEPOINTS' => false, 'LOG_API_USAGE' => false));
         $this->proxy->setTransportOptions(array('HTTP_VERBOSE' => false));
         
